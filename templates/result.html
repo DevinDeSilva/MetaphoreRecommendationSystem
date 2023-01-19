@@ -1,0 +1,67 @@
+<link href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<!--<link href="main.css" rel="stylesheet">-->
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
+<link href="/static/css/main.css" rel="stylesheet" />
+<body>
+	<div class="s006">
+		<form action="http://127.0.0.1:5000/" method="post">
+			<input type="text" class="searchTerm" name="searchTerm"  placeholder="What are you looking for?">
+			<input type="submit" value="Submit">
+		</form>
+        {% if init %}
+        <hgroup class="mb20">
+                    <h1>Song Search Engine</h1>
+                    <h2 class="lead"><strong>Please enter the search query in the box</strong></h2>
+                </hgroup>
+        {% endif %}
+    </div>
+    <div class="s006">
+
+		{% if hits %}
+		<divp class="mb20">
+			<h1>Search Results</h1>
+			<h2 class="lead" id="results"><strong class="text-danger">{{ num_results }}</strong> results were found for the search for <strong class="text-danger">{{  query  }}</strong></h2>
+			<h2 class="lead" id="results"> About <strong class="text-danger">({{  time  }}ms)</strong></h2>
+		</divp>
+		<h4><span>Tags: </span><ul id="tags" style="display: inline-block"></ul></h4>
+
+		<section id='song_section' class="col-md-8">
+			{% for hit in hits %}
+			<article class="search-result row">
+				<div class="col-md-12">
+					<h3><a href="#" title="">{{ hit._source["Song Name"]}}</a></h3>
+					<ul class="meta-search">
+						<li><i class="glyphicon glyphicon-tags"></i> <span>Album Title: {{ hit._source["Album"] }} </span></li>
+						<li><i class="glyphicon glyphicon-tags"></i> <span>Lyricist: {{ hit._source["Lyricist"]  }} </span></li>
+						<li><i class="glyphicon glyphicon-tags"></i> <span>Singers: {{ hit._source["Voice"] }}</span></li>
+						<li><i class="glyphicon glyphicon-tags"></i> <span>Music Composer: {{ hit._source["Music"] }}</span></li>
+						<li><i class="glyphicon glyphicon-tags"></i> <span>Year: {{ hit._source["Year"]  }} </span></li>
+						<li><i class="glyphicon glyphicon-tags"></i> <span>Metaphor: {{ hit._source["Metaphor"]  }} </span></li>
+						<li><i class="glyphicon glyphicon-tags"></i> <span>Metaphor Meaning: {{ hit._source["Metaphor Meaning"] }}</span></li>
+                        <li><i class="glyphicon glyphicon-tags"></i> <span>Metaphor Source Domain: {{ hit._source["source domain"] }}</span></li>
+                        <li><i class="glyphicon glyphicon-tags"></i> <span>Metaphor Target Domain: {{ hit._source["target domain"] }}</span></li>
+					</ul>
+					<p style="white-space: pre-line">{{ hit._source["Lyrics"] }}</p>
+				</div>
+				<div class="col-md-6">
+
+				</div>
+				<span class="clearfix borda"></span>
+			</article>
+			{% endfor %}
+		</section>
+
+
+		{% else %}
+			{% if init %}
+                <div></div>
+			{% else %}
+			<hgroup class="mb20">
+				<h1>Search Results</h1>
+				<h2 class="lead"><strong class="text-danger">0</strong> results were found for the search for <strong class="text-danger">{{  query  }}</strong></h2>
+			</hgroup>
+			{% endif %}
+		{% endif %}
+	</div>
+</body>
