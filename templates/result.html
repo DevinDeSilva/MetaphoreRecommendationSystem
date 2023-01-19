@@ -13,6 +13,14 @@
         <hgroup class="mb20">
                     <h1>Song Search Engine</h1>
                     <h2 class="lead"><strong>Please enter the search query in the box</strong></h2>
+                    <h2 class="lead"><strong>Database stats</strong></h2>
+                    {% for year in years %}
+                        <div class="col-md-12">
+                        <ul class="meta-search">
+                            <li><i class="glyphicon glyphicon-tags"></i> <span>Year: {{ year["key"] }} => Num of songs {{ year["doc_count"] }} </span></li>
+                        </ul>
+                        </div>
+                    {% endfor %}
                 </hgroup>
         {% endif %}
     </div>

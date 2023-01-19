@@ -89,15 +89,11 @@ def agg_multi_match_q(query, fields=['title', 'song_lyrics'], operator='or'):
     return q
 
 
-def agg_q():
+def agg_q(field):
     q = {
-        "size": 0,
         "aggs": {
-            "Category Filter": {
-                "terms": {
-                    "field": "genre",
-                    "size": 10
-                }
+            "years": {
+                "terms": {"field": field}
             }
         }
     }
@@ -105,7 +101,7 @@ def agg_q():
     return q
 
 
-def agg_multi_match_and_sort_q(query, fields, operator='or',sort_num=10):
+def agg_multi_match_and_sort_q(query, fields, operator='or', sort_num=10):
     print(fields)
     print(query)
     print('sort num is ', sort_num)
